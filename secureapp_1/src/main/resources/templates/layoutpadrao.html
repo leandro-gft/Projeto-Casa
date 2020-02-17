@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:th="www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+<meta charset="UTF-8" />
+<title>Casa de Show</title>
+
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/css/open-iconic-bootstrap.css}" rel="stylesheet" type="text/css"/>
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootbox.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootbox.min.js}"></script>
+<script type="text/javascript"	th:src="@{/js/casashow.js}"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+   <a class="navbar-brand" href="#">
+    <img src="https://bulldogjob.pl/system/companies/logos/000/000/241/original/gft_logo.png" width="150" height="30" alt="">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+      </li>
+      
+      <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+        <a class="nav-link" href="/casa">Casas de Show</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/evento">Eventos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/historico">Histórico</a>
+      </li>
+      </ul>
+      <ul class="navbar-nav">
+      <li class="nav-item">
+     <h5>Bem vindo <span sec:authentication="principal.username"></span></h5>
+               </li>
+      <li class="nav-item">
+      		<a onClick="window.location='/carrinho'" type="button" class="btn btn-link btn-xs" style="width: 50px; height: 38px"><img
+									src="/img/cart.png" width="23px;" height="23px" alt="cart"></a>
+      </li> 
+      <li class="nav-item">
+      		<input onClick="window.location='/logout'" type="button" class="btn btn-secundary my-2 my-sm-0" value="Logout" />
+      </li>
+      
+      </ul>
+  </div>
+</nav>	
+     
+	<section layout:fragment="conteudo">
+
+	</section>
+</body>	
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layoutpadrao">
+<head>
+<meta charset="UTF-8">
+<title>Histórico</title>
+</head>
+<body>
+
+	<section layout:fragment="conteudo">
+	
+	<form action="#" class="form-horizontal" method="POST"
+			th:action="@{/historico/}" th:object="${compra}">
+			
+
+			<div class="card card-default">
+				<div class="card-header">
+					<h5>
+						<b>Suas compras</b>
+					</h5>
+				</div>
+				<div class="card-body">
+				<input type="hidden" th:field="*{id}" />
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th class="text-center">Pedido nº</th>
+								<th class="text-center">Evento</th>
+								<th class="text-center">Gênero</th>
+								<th class="text-center">Data</th>	
+								<th class="text-center">Valor</th>
+								<th class="text-center">Local</th>
+								<th class="text-center">Quantidade</th>
+								<th class="text-center">Total</th>
+								<th class="text-center"></th>
+							</tr>
+						</thead>
+						<tbody>
+							
+							<tr th:each="compra : ${compras}">
+								<td class="text-center" th:text="${compra.id}"></td>
+								<td class="text-center" th:text="${compra.nomeEvento}"></td>
+								<td class="text-center" th:text="${compra.genero.descricao}"></td>
+								<td class="text-center" th:text="${{compra.data}}"></td>
+								<td class="text-center" th:text="|R$ ${{compra.valor}}|"></td>
+								<td class="text-center" th:text="${compra.casa.nomeCasa}"></td>
+							    <td class="text-center" th:text="${compra.qtd}"></td>
+							    <td class="text-center" th:text="${compra.qtd}*${compra.valor}"></td>
+								<td class="text-center"><a class="btn btn-link btn-xs"
+									data-toggle="tooltip" data-placement="top" title="Excluir do histórico" th:href="@{/historico/delete/{id}(id=${compra.id})}"> <img
+										src="/img/x.png" width="60%" alt="x">
+								</a></td>
+
+							</tr>
+
+							<tr>
+								<td colspan="12" th:if="${#lists.isEmpty(compras)}">Nenhuma
+									compra até o momento</td>
+							</tr>
+
+						</tbody>
+					</table>
+
+				</div>
+
+			</div>
+			</form>
+	</section>
+</body>
+</html>
