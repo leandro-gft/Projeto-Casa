@@ -45,11 +45,9 @@ public class CarrinhoController {
 		Evento evento = eventos.findById(id).get();
 		carrinho.setEvento(evento);
 		if (carrinho.getEvento().getCapacidade() == 0) {
-
 			redirectAttributes.addFlashAttribute("insucesso", "Quantidade insuficiente de ingressos disponíveis.");
 			return mv;
-		}
-				
+		}				
 		carrinhos.save(carrinho);
 		mv.addObject("carrinhos", carrinho);
 		redirectAttributes.addFlashAttribute("sucesso","Produto adicionado no carrinho!");

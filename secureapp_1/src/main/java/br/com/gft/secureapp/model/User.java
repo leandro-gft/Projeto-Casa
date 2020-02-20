@@ -29,7 +29,7 @@ public class User {
 	private String password;
 	private String confirmPassword;
 	
-	@ManyToMany(cascade=CascadeType.MERGE)
+	@ManyToMany
     @JoinTable(
        name="user_role",
        joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},

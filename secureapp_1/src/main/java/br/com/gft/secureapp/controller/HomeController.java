@@ -69,8 +69,9 @@ public class HomeController {
 		
 	 @ExceptionHandler(ConstraintViolationException.class)
 	    public ModelAndView usuarioExiste(RedirectAttributes redirectAttributes){
+		 ModelAndView mv = new ModelAndView("redirect:/registration");
 	        redirectAttributes.addFlashAttribute("username", "Usuário já existe. Tente novamente!");
-	        return new ModelAndView("redirect:/registration");
+	        return mv;
 	    }
 	 
 	 

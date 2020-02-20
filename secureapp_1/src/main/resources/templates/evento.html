@@ -50,7 +50,7 @@
 					<div class="form-group">
 						<label class="col-md-4 control-label" for="data">Data</label>
 						<div class="col-md-4">
-							<input id="data" th:value="${data}" th:field="*{data}" type="date"
+							<input id="data" th:value="${data}" th:field="*{data}" type="date" max="2999-12-31" 
 								placeholder="dd/mm/aaaa" class="form-control" />
 
 						</div>
@@ -90,7 +90,7 @@
 						</div>
 					</div>
 				
-					<button class="btn btn-primary" id="botaosalvar">Salvar</button>
+					<button class="btn btn-primary" id="botaosalvar">Salvar </button>
 
 				</div>
 			</div>
@@ -144,7 +144,7 @@
 							</a></td>
 						</tr>
 						<tr>
-							<td colspan="12" th:if="${#lists.isEmpty(eventos)}">Nenhuma
+							<td colspan="12" th:if="${#lists.isEmpty(eventos)}">Nenhum
 								evento foi encontrado</td>
 						</tr>
 

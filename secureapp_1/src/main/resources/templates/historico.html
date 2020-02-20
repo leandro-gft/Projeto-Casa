@@ -33,7 +33,7 @@
 								<th class="text-center">Local</th>
 								<th class="text-center">Quantidade</th>
 								<th class="text-center">Total</th>
-								<th class="text-center"></th>
+								
 							</tr>
 						</thead>
 						<tbody>
@@ -47,10 +47,7 @@
 								<td class="text-center" th:text="${compra.casa.nomeCasa}"></td>
 							    <td class="text-center" th:text="${compra.qtd}"></td>
 							    <td class="text-center" th:text="${compra.qtd}*${compra.valor}"></td>
-								<td class="text-center"><a class="btn btn-link btn-xs"
-									data-toggle="tooltip" data-placement="top" title="Excluir do histórico" th:href="@{/historico/delete/{id}(id=${compra.id})}"> <img
-										src="/img/x.png" width="60%" alt="x">
-								</a></td>
+								
 
 							</tr>
 

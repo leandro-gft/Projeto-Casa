@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	layout:decorate="layoutpadrao">
 <head>
 
 <meta charset="UTF-8">
-<title>Casas de show</title>
+<title >Casas de show</title>
 </head>
 <body>
 	<section layout:fragment="conteudo">
 
-		<form  action="#" class="form-horizontal" method="POST" th:action="@{/casa/}" th:object="${casa}" name="casa" onSubmit="return enviarCasa();">
+		<form sec:authorize="hasAuthority('ADMIN')" action="#" class="form-horizontal" method="POST" th:action="@{/casa/}" th:object="${casa}" name="casa" onSubmit="return enviarCasa();">
 	
 		<div th:text="${sucesso}" th:if="${!#strings.isEmpty(sucesso)}" class="alert alert-success"></div>	
 		
@@ -31,6 +32,7 @@
 						<div class="col-sm-5">
 							<input id="nomeCasa"  th:field="*{nomeCasa} " type="text"
 									placeholder="Casa de show"  class="form-control" />
+									
 
 						</div>
 					</div>
@@ -74,9 +76,9 @@
 							<td class="text-center" th:text="${casa.nomeCasa}"></td> 
 						    <td class="text-center" th:text="${casa.localCasa}"></td> 
 						    
-						<td class="text-center"><a class="btn btn-link btn-xs" data-toggle="tooltip" data-placement="top" title="Editar casa de show"
+						<td class="text-center"><a sec:authorize="hasAuthority('ADMIN')" class="btn btn-link btn-xs" data-toggle="tooltip" data-placement="top" title="Editar casa de show"
 							th:href="@{/casa/{id}(id=${casa.id})}"> <img src="/img/pencil.png" width="60%" alt="pencil">
-						</a><a class="btn btn-link btn-xs" data-toggle="tooltip" data-placement="top" title="Excluir casa de show" th:href="@{/casa/delete/{id}(id=${casa.id})}"> <img src="/img/x.png" width="60%" alt="x"> </a> </td>
+						</a><a sec:authorize="hasAuthority('ADMIN')" class="btn btn-link btn-xs" data-toggle="tooltip" data-placement="top" title="Excluir casa de show" th:href="@{/casa/delete/{id}(id=${casa.id})}"> <img src="/img/x.png" width="60%" alt="x"> </a> </td>
 						
 						</tr>
 						

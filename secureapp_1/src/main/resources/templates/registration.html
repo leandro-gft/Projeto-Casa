@@ -14,6 +14,7 @@
 
 </head>
 <body>
+
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-xl-9 mx-auto">
@@ -22,7 +23,10 @@
              <!-- Background image for card set in CSS! -->
           </div>
           <div class="card-body">
+          
             <h5 class="card-title text-center">Cadastre-se</h5>
+            		<div th:text="${username}" th:if="${!#strings.isEmpty(username)}" class="alert alert-danger"></div>	
+            
             <form class="form-signin" id="form_senha" name="form_senha" method="POST" action="/registration">
             <div class="alert alert-success alert-dismissible" role="alert" th:if="${!#strings.isEmpty(mensagem)}">
             <button type="button" class="close" data-dismis="alert"></button>

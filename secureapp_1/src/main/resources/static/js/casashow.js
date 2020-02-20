@@ -1,3 +1,4 @@
+
 function enviarEvento(){
 
 		  
@@ -22,6 +23,8 @@ function enviarEvento(){
 		document.evento.valor.focus();
 		return false;
 		}
+		
+		
 		
 				
 		if(document.evento.casa.value=="")
@@ -95,3 +98,4 @@ $( function() {
 $(function () {
 	  $('[data-toggle="tooltip"]').tooltip()
 	})
+	
