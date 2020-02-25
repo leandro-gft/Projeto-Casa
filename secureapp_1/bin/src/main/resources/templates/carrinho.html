@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layoutpadrao">
+<head>
+<meta charset="UTF-8">
+<title>Carrinho</title>
+</head>
+<body>
+
+	<section layout:fragment="conteudo">
+
+			
+		<div th:text="${sucesso}" th:if="${!#strings.isEmpty(sucesso)}" class="alert alert-success"></div>
+		<div th:text="${insucesso}" th:if="${!#strings.isEmpty(insucesso)}" class="alert alert-danger"></div>
+		
+		<div class="card card-default">
+		
+			<div class="card-header">
+				<h5>
+					<b>Confira os itens no seu carrinho</b>
+				</h5>
+			</div>
+			<div class="card-body">
+				
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th class="text-center">Evento</th>
+							<th class="text-center">Gênero</th>
+							<th class="text-center">Data</th>
+							<th class="text-center">Local</th>							
+							<th class="text-center">Ingressos disponíveis</th>
+							<th class="text-center">Valor</th>
+							<th class="text-center">Quantidade</th>
+							<th class="text-center"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="carrinho : ${carrinhos}">
+							<td class="text-center" th:text="${carrinho.evento.nomeEvento}"></td>
+							<td class="text-center" th:text="${carrinho.evento.genero.descricao}"></td>
+							<td class="text-center" th:text="${{carrinho.evento.data}}"></td>							
+							<td class="text-center" th:text="${carrinho.evento.casa.nomeCasa}"></td>
+							<td class="text-center" th:text="${carrinho.evento.capacidade}"></td>
+							<td class="text-center" th:text="|R$ ${{carrinho.evento.valor}}|"></td>
+							<td class="form-group text-center">
+								<form action="#" th:action="@{/historico/{id}(id=${carrinho.id})}" th:object="${carrinho}" class="form-horizontal" method="POST">
+									<input type="hidden" th:field="*{id}" />
+									<input placeholder="1"  th:field="*{qtd}" id="qtd" class="text-center" type="number" min="1" required/>
+									<button class="btn btn-link btn-xs" data-toggle="tooltip" data-placement="top" title="Confirmar compra" type="submit"><img
+									src="/img/check.png" width="60%" alt="check" ></button>
+										</form>
+							</td>
+							<td class="text-center"><a
+								class="btn btn-link btn-xs" data-toggle="tooltip" data-placement="top" title="Excluir"
+								th:href="@{/carrinho/delete/{id}(id=${carrinho.id})}"> <img
+									src="/img/x.png" width="60%" alt="x"></a></td>
+	
+ 						</tr>
+
+							<tr>
+								<td colspan="12" th:if="${#lists.isEmpty(carrinhos)}">Nenhuma
+									compra até o momento</td>
+							</tr>
+
+						</tbody>
+					</table>
+
+				</div>
+
+			</div>
+	</section>
+</body>
+</html>

@@ -19,7 +19,7 @@ public class Casa {
 	private String localCasa;
 	
 	@OneToMany(mappedBy="casa", cascade=javax.persistence.CascadeType.ALL) 
-	List<Evento> evento;
+	private List<Evento> evento;
 	
 	public List<Evento> getEvento() {
 		return evento;

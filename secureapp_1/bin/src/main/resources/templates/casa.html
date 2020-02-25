@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorate="layoutpadrao">
+<head>
+
+<meta charset="UTF-8">
+<title >Casas de show</title>
+</head>
+<body>
+	<section layout:fragment="conteudo">
+
+		<form sec:authorize="hasAuthority('ADMIN')" action="#" class="form-horizontal" method="POST" th:action="@{/casa/}" th:object="${casa}" name="casa" onSubmit="return enviarCasa();">
+	
+		<div th:text="${sucesso}" th:if="${!#strings.isEmpty(sucesso)}" class="alert alert-success"></div>	
+		
+						
+			<div class="card card-default">
+				<div class="card-header">
+					<h5>
+						<b>Nova casa de show</b>
+					</h5>
+				</div>
+				<div class="card-body">
+				
+				<input type="hidden" th:field="*{id}"/>
+								
+					<!-- Text input-->
+					<div class="form-group" >
+						<label class="col-sm-2 control-label" for="nomeCasa">Casa de show</label>
+						<div class="col-sm-5">
+							<input id="nomeCasa"  th:field="*{nomeCasa} " type="text"
+									placeholder="Casa de show"  class="form-control" />
+									
+
+						</div>
+					</div>
+
+					<!-- Text input-->
+					<div class="form-group" >
+						<label class="col-sm-2 control-label" for="localCasa">Endereço</label>
+						<div class="col-sm-5">
+							<input id="localCasa" th:field="*{localCasa} " type="text"
+								placeholder="Endereço" class="form-control" />
+
+						</div>
+					</div>
+					
+					
+					<button class="btn btn-primary" id="botaosalvar">Salvar</button>
+
+				</div>
+			</div>
+		</form>
+
+			<div class="card card-default">
+				<div class="card-header">
+					<h5>
+						<b>Casas de show cadastradas</b>
+					</h5>
+				</div>
+				<div class="card-body">
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th class="text-center">#</th>
+								<th class="text-center">Casa de show</th>
+								<th class="text-center">Endereço</th>
+								<th class="text-center"></th>
+							</tr>
+						</thead>
+						<tbody>
+						<tr th:each="casa : ${casas}">
+							<td class="text-center" th:text="${casa.id}">1</td> 
+							<td class="text-center" th:text="${casa.nomeCasa}"></td> 
+						    <td class="text-center" th:text="${casa.localCasa}"></td> 
+						    
+						<td class="text-center"><a sec:authorize="hasAuthority('ADMIN')" class="btn btn-link btn-xs" data-toggle="tooltip" data-placement="top" title="Editar casa de show"
+							th:href="@{/casa/{id}(id=${casa.id})}"> <img src="/img/pencil.png" width="60%" alt="pencil">
+						</a><a sec:authorize="hasAuthority('ADMIN')" class="btn btn-link btn-xs" data-toggle="tooltip" data-placement="top" title="Excluir casa de show" th:href="@{/casa/delete/{id}(id=${casa.id})}"> <img src="/img/x.png" width="60%" alt="x"> </a> </td>
+						
+						</tr>
+						
+						<tr>
+								<td colspan="12" th:if="${#lists.isEmpty(casas)}">Nenhuma casa de show foi encontrada</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+				
+			</div>
+	</section>
+</body>
+</html>

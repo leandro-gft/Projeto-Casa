@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -28,15 +29,17 @@ public class User {
 	
 	private String password;
 	private String confirmPassword;
+	private int permissao;
+	@ManyToOne
+    private Role role;
 	
-	@ManyToMany
-    @JoinTable(
-       name="user_role",
-       joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
-       inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})  
-	private List<Role> roles;
-	
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)	
+    public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)	
     private List<Compra> compra;
 	
     public List<Compra> getCompra() {
@@ -89,12 +92,12 @@ public class User {
 			return false;
 		return true;
 	}
+	public int getPermissao() {
+		return permissao;
+	}
+	public void setPermissao(int permissao) {
+		this.permissao = permissao;
+	}
 	
-	public List<Role> getRoles() {
-		return roles;
-	}
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
 	
 }

@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.gft.secureapp.model.Role;
 import br.com.gft.secureapp.model.User;
+import br.com.gft.secureapp.repository.RoleRepository;
 import br.com.gft.secureapp.repository.UserRepository;
 
 
@@ -23,6 +25,8 @@ public class HomeController {
 
 	@Autowired
 	private UserRepository users;
+	@Autowired
+	private RoleRepository roles;
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -50,10 +54,18 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public ModelAndView register(User user) {
+	public ModelAndView register(User user, int permissao) {
 				
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		user.setConfirmPassword(bCryptPasswordEncoder.encode(user.getConfirmPassword()));
+		user.setPermissao(permissao);
+		if (user.getPermissao() == 1) {
+			Role role = roles.findById((long) 1).get();
+			user.setRole(role);
+		} else {
+			Role role = roles.findById((long) 2).get();
+			user.setRole(role);
+		}
 		users.save(user);
 		
 		ModelAndView mv = new ModelAndView("registration");

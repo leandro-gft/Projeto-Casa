@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorate="layoutpadrao">
+<head>
+
+<meta charset="UTF-8">
+<title>Eventos</title>
+
+
+</head>
+<body>
+
+	<section layout:fragment="conteudo">
+
+	<div th:text="${sucesso}" th:if="${!#strings.isEmpty(sucesso)}" class="alert alert-success"></div>
+	<div th:text="${insucesso}" th:if="${!#strings.isEmpty(insucesso)}" class="alert alert-danger"></div>
+		
+		<form action="#" class="form-horizontal" method="POST" name="evento"
+			th:action="@{/evento/}" th:object="${evento}" onSubmit="return enviarEvento();"
+			sec:authorize="hasAuthority('ADMIN')">
+				
+			<div class="card card-default">
+				<div class="card-header">
+					<h5>
+						<b>Novo evento</b>
+					</h5>
+				</div>
+				<div class="card-body">
+					<input type="hidden" th:field="*{id}" />
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="nomeEvento">Evento</label>
+						<div class="col-sm-5">
+							<input id="nomeEvento" th:field="*{nomeEvento}" th:value="${nomeEvento}"  type="text"
+								placeholder="Nome do evento" class="form-control" />
+
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="capacidade">Capacidade</label>
+						<div class="col-sm-4">
+							<input id="capacidade" th:value="${capacidade}" th:field="*{capacidade}" type="number" min="1"
+								placeholder="Quantidade de ingressos" class="form-control"  />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="data">Data</label>
+						<div class="col-md-4">
+							<input id="data" th:value="${data}" th:field="*{data}" type="date" max="2999-12-31" 
+								placeholder="dd/mm/aaaa" class="form-control" />
+
+						</div>
+					</div>
+
+
+			<div class="form-group">
+						<label class="col-sm-2 control-label" for="valor">Preço do
+							ingresso</label>
+						<div class="col-sm-4">
+							<input id="valor" th:value="${valor}"  th:field="*{valor}" type="text" onKeyPress="return(moeda(this,'.',',',event))"
+								placeholder="123,45" class="form-control" />
+
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="genero" class="col-sm-2 control-label">Gênero</label>
+						<div class="col-sm-4">
+							<select class="form-control" id="genero" name="genero" >
+								<option th:each="genero : ${todosGenero}" th:value="${genero}"
+									th:text="${genero.descricao}" ></option>
+							</select>
+						</div>
+					</div>
+
+					<!-- Select Basic -->
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="casa">Casa de
+							show</label>
+						<div class="col-sm-4">
+							<select id="casa" th:field="*{casa}" class="form-control" >
+								<option th:each="casa : ${casas}" th:value="${casa.id}"
+									th:text="${casa.nomeCasa}" />
+							
+							</select>
+						</div>
+					</div>
+				
+					<button class="btn btn-primary" id="botaosalvar">Salvar </button>
+
+				</div>
+			</div>
+			
+		</form>
+
+		<div class="card card-default">
+			<div class="card-header">
+				<h5>
+					<b>Eventos cadastrados</b>
+				</h5>
+			</div>
+			<div class="card-body">
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th class="text-center ">#</th>
+							<th class="text-center ">Evento</th>
+							<th class="text-center ">Gênero</th>
+							<th class="text-center ">Ingressos disponíveis</th>
+							<th class="text-center ">Data</th>
+							<th class="text-center ">Local</th>
+							<th class="text-center ">Valor</th>
+							<th class="text-center "></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="evento : ${eventos}">
+						
+							<td class="text-center" th:text="${evento.id}"></td>
+							<td class="text-center " th:text="${evento.nomeEvento}"></td>
+							<td class="text-center " th:text="${evento.genero.descricao}"></td>
+							<td class="text-center " th:text="${evento.capacidade}"></td>
+							<td class="text-center " th:text="${{evento.data}}"></td>
+							<td class="text-center " th:text="${evento.casa.nomeCasa}"></td>
+							<td class="text-center " th:text="|R$ ${{evento.valor}}|"></td>
+
+							<td class="text-center "><a
+								sec:authorize="hasAuthority('ADMIN')"
+								class="btn btn-link btn-xs" data-toggle="tooltip" data-placement="top" title="Editar evento"
+								th:href="@{/evento/{id}(id=${evento.id})}"> <img
+									src="/img/pencil.png" width="60%" alt="pencil" />
+							</a> <a sec:authorize="hasAuthority('ADMIN')"
+								class="btn btn-link btn-xs" data-toggle="tooltip" data-placement="top" title="Excluir evento"
+								th:href="@{/evento/delete/{id}(id=${evento.id})}"> <img
+									src="/img/x.png" width="60%" alt="x">
+							</a> <a class="btn btn-link btn-xs"
+								data-toggle="tooltip" data-placement="top" title="Enviar para o carrinho" style="width: 50px; height: 38px"
+								th:href="@{/carrinho/{id}(id=${evento.id})}"> <img
+									src="/img/cart.png" width="18px" height="18px" alt="cart" />
+							</a></td>
+						</tr>
+						<tr>
+							<td colspan="12" th:if="${#lists.isEmpty(eventos)}">Nenhum
+								evento foi encontrado</td>
+						</tr>
+
+					</tbody>
+				</table>
+
+
+			</div>
+		</div>
+
+	</section>
+</body>
+
+</html>
