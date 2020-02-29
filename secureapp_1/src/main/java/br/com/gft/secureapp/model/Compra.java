@@ -29,20 +29,19 @@ public class Compra {
 	
 	@NumberFormat(pattern="#,##0.00")
 	private BigDecimal valor;
-
-	@ManyToOne
-	private Casa casa;
+	
+	public String getCasa() {
+		return casa;
+	}
+	public void setCasa(String casa) {
+		this.casa = casa;
+	}
+	private String casa;
 	
 	private Genero genero;
 	private int qtd;
 	private String nomeEvento;
 	
-	public Casa getCasa() {
-		return casa;
-	}
-	public void setCasa(Casa casa) {
-		this.casa = casa;
-	}
 	public String getNomeEvento() {
 		return nomeEvento;
 	}

@@ -75,7 +75,7 @@ public class CompraController {
 
 		// pegando os itens do carrinho
 		compra.setUser(user);
-		compra.setCasa(carrinho.getEvento().getCasa());
+		compra.setCasa(carrinho.getEvento().getCasa().getNomeCasa());
 		compra.setGenero(carrinho.getEvento().getGenero());
 		compra.setData(carrinho.getEvento().getData());
 		compra.setNomeEvento(carrinho.getEvento().getNomeEvento());
