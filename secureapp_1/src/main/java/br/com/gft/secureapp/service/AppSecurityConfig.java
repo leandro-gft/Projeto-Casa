@@ -43,7 +43,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter{
 			.authorizeRequests()
 			.antMatchers("/login", "/registration").permitAll()
 			.antMatchers("/css/**","/js/**", "/img/**").permitAll()
-	        .antMatchers("/admin/**").hasRole("ADMIN")
+	        .antMatchers("/casa/**").hasAuthority("ADMIN")
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()

@@ -11,7 +11,7 @@
 <body>
 	<section layout:fragment="conteudo">
 
-		<form sec:authorize="hasAuthority('ADMIN')" action="#" class="form-horizontal" method="POST" th:action="@{/casa/}" th:object="${casa}" name="casa" onSubmit="return enviarCasa();">
+		<form action="#" class="form-horizontal" method="POST" th:action="@{/casa/}" th:object="${casa}" name="casa" onSubmit="return enviarCasa();">
 	
 		<div th:text="${sucesso}" th:if="${!#strings.isEmpty(sucesso)}" class="alert alert-success"></div>	
 		
@@ -76,9 +76,9 @@
 							<td class="text-center" th:text="${casa.nomeCasa}"></td> 
 						    <td class="text-center" th:text="${casa.localCasa}"></td> 
 						    
-						<td class="text-center"><a sec:authorize="hasAuthority('ADMIN')" class="btn btn-link btn-xs" data-toggle="tooltip" data-placement="top" title="Editar casa de show"
+						<td class="text-center"><a class="btn btn-link btn-xs" data-toggle="tooltip" data-placement="top" title="Editar casa de show"
 							th:href="@{/casa/{id}(id=${casa.id})}"> <img src="/img/pencil.png" width="60%" alt="pencil">
-						</a><a sec:authorize="hasAuthority('ADMIN')" class="btn btn-link btn-xs" data-toggle="tooltip" data-placement="top" title="Excluir casa de show" th:href="@{/casa/delete/{id}(id=${casa.id})}"> <img src="/img/x.png" width="60%" alt="x"> </a> </td>
+						</a><a class="btn btn-link btn-xs" data-toggle="tooltip" data-placement="top" title="Excluir casa de show" th:href="@{/casa/delete/{id}(id=${casa.id})}"> <img src="/img/x.png" width="60%" alt="x"> </a> </td>
 						
 						</tr>
 						
